@@ -26,3 +26,7 @@ exports.register = async function(req, res){
 		res.render('error', {error: e});
 	}
 };
+
+exports.login = (req, res) => {
+	
+};
