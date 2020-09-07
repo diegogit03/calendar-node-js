@@ -13,4 +13,7 @@ routes.post('/login', LoginController.login);
 // Rotas de registro
 routes.post('/register', LoginController.register);
 
+// Rota de logout
+routes.get('/logout', LoginController.logout);
+
 module.exports = routes;
