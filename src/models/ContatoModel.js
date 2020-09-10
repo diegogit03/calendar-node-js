@@ -18,12 +18,16 @@ function Contato(body){
 	this.contato = null;
 };
 
+Contato.findById = async function(id){
+	const contact = await ContatoModel.findById(id);
+	return contact;
+};
+
 Contato.prototype.register = async function(){
 	this.valida();
 
 	if(this.errors.length > 0) return;
-	console.log(this.errors.length);
-	return this.contato = await ContatoModel.create(this.body);
+	this.contato = await ContatoModel.create(this.body);
 };
 
 Contato.prototype.valida = function(){
