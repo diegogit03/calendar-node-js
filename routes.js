@@ -23,5 +23,6 @@ routes.get('/contato', ContatoController.index);
 routes.post('/contato', ContatoController.register);
 routes.get('/contato/:id', ContatoController.updateIndex);
 routes.post('/contato/update/:id', ContatoController.update);
+routes.get('/contato/delete/:id', ContatoController.delete);
 
 module.exports = routes;
