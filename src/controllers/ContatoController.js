@@ -32,3 +32,25 @@ exports.updateIndex = async (req, res) => {
 		contato: contact 
 	});
 };
+
+exports.update = async (req, res) => {
+
+	try{
+		if (!req.params.id) return res.render('error', { error: {code: '400',message: 'Bad Request'} });
+		const contatoModel = new Model(req.body);
+		await contatoModel.update(req.params.id);
+
+		if(contatoModel.errors.length > 0){
+			req.flash('errors', contatoModel.errors);
+			req.session.save(() => res.redirect('back'));
+			return;
+		};
+
+		req.flash('success', 'Contato Editado com sucesso!');
+		req.session.save(() => res.redirect(`/contato/${contatoModel.contato._id}`));
+		return;
+	}catch(error){
+		res.render('error', { error });
+	}
+	
+};

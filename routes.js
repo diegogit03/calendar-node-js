@@ -22,5 +22,6 @@ routes.get('/logout', LoginController.logout);
 routes.get('/contato', ContatoController.index);
 routes.post('/contato', ContatoController.register);
 routes.get('/contato/:id', ContatoController.updateIndex);
+routes.post('/contato/update/:id', ContatoController.update);
 
 module.exports = routes;
