@@ -2,7 +2,6 @@ const Model = require('../models/ContatoModel');
 
 exports.index = (req, res) => {
 	res.render('contato', { contato: {} });
-	console.log(req.flash['errors']);
 };
 
 exports.register = async (req, res) => {
@@ -17,7 +16,7 @@ exports.register = async (req, res) => {
 		};
 
 		req.flash('success', 'Contato Registrado com sucesso!');
-		req.session.save(() => res.redirect(`/contato/${contatoModel.contato._id}`));
+		req.session.save(() => res.redirect(`/`));
 		return;	
 	}catch(e){
 		return res.render('error', {error: e});
@@ -47,10 +46,21 @@ exports.update = async (req, res) => {
 		};
 
 		req.flash('success', 'Contato Editado com sucesso!');
-		req.session.save(() => res.redirect(`/contato/${contatoModel.contato._id}`));
+		req.session.save(() => res.redirect(`/`));
 		return;
 	}catch(error){
 		res.render('error', { error });
 	}
 	
+};
+
+exports.delete = async (req, res) => {
+	if(!req.params.id) return res.render('error', { error: {code: '400',message: 'Bad Request'} });
+
+	const contact = await Model.delete(req.params.id);
+	if (!contact) return res.render('error', { error: {code: '404',message: 'Not found'} });
+
+	req.flash('success', 'Contato apagado com sucesso!');
+	req.session.save(() => res.redirect('back'));
+	return;	
 };

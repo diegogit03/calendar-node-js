@@ -63,8 +63,14 @@ Contato.findById = async function(id){
 	return contact;
 };
 
-Contato.findAll = async function(id){
-	const contact = await ContatoModel.find().sort({ createdAt: -1 });
+Contato.findAll = async function(){
+	const contacts = await ContatoModel.find().sort({ createdAt: -1 });
+	return contacts;
+};
+
+Contato.delete = async function(id){
+	if (typeof id !== 'string') return;
+	const contact = await ContatoModel.findOneAndDelete({ _id: id });
 	return contact;
 };
 
